@@ -17,11 +17,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+
+
+
+     protected $guarded = ['id'];
+
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +46,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function setImageAttribute($value)
+    {
+       $this->attributes['image'] = basename($value);      
+    }
+    public function getImageAttribute($value)
+    {
+        return asset("storage/image/$value");
+    }
 }
