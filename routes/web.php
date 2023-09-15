@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\NoticeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::resource('course',CourseController::class);
+Route::get('/enroll/{course}',[CourseController::class,'enroll'])->name('enroll');
+Route::put('/enroll/attach/{user}',[CourseController::class,'attach'])->name('course.attach');
+Route::delete('/enroll/detach/{user}',[CourseController::class,'detach'])->name('course.detach');
+
+
+Route::get('/courses/{course}/notice',[NoticeController::class,'index'])->name('course.notices');
+Route::post('/courses/{course}/notice/create',[NoticeController::class,'store'])->name('notice.store');
+Route::delete('/course/notices/{notice}/delete',[NoticeController::class,'destroy'])->name('notice.delete');

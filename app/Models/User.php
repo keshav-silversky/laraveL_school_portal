@@ -47,6 +47,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function enroll()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function hasCourse(User $user,Course $course)
+    {
+     if($user->enroll()->where('course_id',$course->id)->exists())
+     {
+        return true;
+     }
+     else
+     {
+        return false;
+     }
+    }
+
 
     public function setImageAttribute($value)
     {

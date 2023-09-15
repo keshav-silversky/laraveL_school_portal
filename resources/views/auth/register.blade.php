@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
-
+        
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
@@ -17,7 +17,8 @@
 
                             <div class="col-md-6">
                               
-                                <select class="form-select" name="role" aria-label="Default select example">
+                           
+                                <select class="form-select @error('role') is-invalid @enderror" name="role" aria-label="Default select example" >
                                     <option selected value='sr'>---Select Role---</option>
                                     <option value="teacher">Teacher</option>
                                     <option value="student">Student</option>
@@ -134,15 +135,15 @@
 
     <div class="col-md-6">
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" @if(old('gender')=='male') checked @endif>
             <label class="form-check-label" for="inlineRadio1">Male</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female" @if(old('gender')=='female') checked @endif>
             <label class="form-check-label" for="inlineRadio2">Female</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="other" >
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="other" @if(old('gender')=='other') checked @endif>
             <label class="form-check-label" for="inlineRadio3">Other</label>
           </div>
 
@@ -161,15 +162,15 @@
 
     <div class="col-md-6">
         <div class="form-check form-check-inline">
-            <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox1" value="cricket">
+            <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox1" value="cricket" {{ in_array('cricket', old('hobbies', [])) ? 'checked' : '' }}>
             <label class="form-check-label" for="inlineCheckbox1">Cricket</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox2" value="football">
+              <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox2" value="football" {{ in_array('football', old('hobbies', [])) ? 'checked' : '' }}>
               <label class="form-check-label" for="inlineCheckbox2">Football</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox3" value="hockey" >
+              <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox3" value="hockey" {{ in_array('hockey', old('hobbies', [])) ? 'checked' : '' }}>
               <label class="form-check-label" for="inlineCheckbox3">Hockey</label>
           </div>
         @error('hobbies')
