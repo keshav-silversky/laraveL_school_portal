@@ -27,7 +27,7 @@
               <th>Name</th>
               <th>Price</th>
               <th>Created On</th>
-              <th colspan="3">Action</th>
+              <th >Action</th>
             </tr>
           </thead>
           <tfoot>
@@ -37,7 +37,7 @@
               <th>Name</th>
               <th>Price</th>
               <th>Created On</th>
-              <th colspan="3">Action</th>
+              <th>Action</th>
             </tr>
           </tfoot>
           <tbody>
@@ -50,16 +50,16 @@
               <td>{{$course->price}}</td>
               <td>{{$course->created_at->diffForHumans()}}</td>
 
-              <td>
-                <a href="{{route('course.notices',$course)}}"><button class="btn btn-warning">Notice</button></a></td>
-              <td><a href="{{route('enroll',$course->id)}}"><button class="btn btn-success">Enroll</button></a></td>
-              <td>
-                <form method="post" action="{{route('course.destroy',$course->id)}}">
-                  @csrf
-                  @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
-              </td>
+              <td class="text-center">
+                <a href="{{ route('course.notices', $course) }}" class="btn btn-warning d-inline-block">Notice</a>
+                <a href="{{ route('enroll', $course->id) }}" class="btn btn-success d-inline-block">Enroll</a>
+                <form method="post" action="{{ route('course.destroy', $course->id) }}" class="d-inline-block">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+            
           
 
             </tr>

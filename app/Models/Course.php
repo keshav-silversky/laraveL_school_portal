@@ -10,12 +10,23 @@ class Course extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-
+// protected $with = "user";
 
     public function users()
     {
         return $this->belongsToMany(User::class); 
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class); 
+    }
+    
+
+    public function comments()
+    {
+        return $this->belongsToMany(Comment::class);
+    }
+
 
 
     public function notices()

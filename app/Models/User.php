@@ -56,6 +56,13 @@ class User extends Authenticatable
         return $this->hasMany(Course::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
+
     public function hasCourse(User $user,Course $course)
     {
      if($user->enroll()->where('course_id',$course->id)->exists())

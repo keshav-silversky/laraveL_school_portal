@@ -62,7 +62,7 @@ Enroll Students
               <th>Image</th>
               <th>Name</th>
               <th>Email</th>
-              <th colspan="2">Action</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tfoot>
@@ -71,7 +71,7 @@ Enroll Students
               <th>Image</th>
               <th>Name</th>
               <th>Email</th>
-              <th colspan="2">Action</th>
+              <th>Action</th>
             </tr>
           </tfoot>
           <tbody>
@@ -85,35 +85,31 @@ Enroll Students
                         <td>{{$user->email}}</td>
 
                         {{-- ATTACH --}}
-                        <td>
+                        <td class="d-flex align-items-center">
                           @if($user->hasCourse($user,$course) == false)
                         <form method="post" action="{{route('course.attach',$user->id)}}">
                           @csrf
                           @method('PUT')
                           <input type="hidden" name="course_id" value="{{$course->id}}" >
-                          <button type="submit" class="btn btn-primary">Attach</button>
+                          <button type="submit" class="btn btn-link"><img src="{{asset('images/add.png')}}" alt="" height="30px" width="30px"></button>
                       </form>
                       @else
-                <button type="submit" class="btn btn-primary" disabled>Attach</button>
+                <button type="submit" class="btn btn-link" disabled><img src="{{asset('images/add.png')}}" alt="" height="30px" width="30px"></button>
                       @endif
-                        </td>
+
                         {{-- DETACH --}}
-                        <td>
+             
                           @if($user->hasCourse($user,$course) == true)
                         <form method="post" action="{{route('course.detach',$user->id)}}">
                           @csrf
                           @method('DELETE')
                           <input type="hidden" name="course_id" value="{{$course->id}}" >
-                          <button type="submit" class="btn btn-danger">Detach</button>
+                          <button type="submit"  class="btn btn-link"  ><img src="{{asset('images/remove.png')}}" alt="" height="30px" width="30px"></button>
                       </form>
                       @else
-                <button type="submit" class="btn btn-danger" disabled>Detach</button>
+                <button type="submit"  class="btn btn-link" disabled><img src="{{asset('images/remove.png')}}" alt="" height="30px" width="30px"></button>
                       @endif
                         </td>
-
-     
-
-                   
 
                   </tr>
           @endforeach  

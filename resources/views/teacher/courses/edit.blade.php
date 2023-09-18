@@ -32,7 +32,6 @@
 </span>
 @enderror
 </div>
-
 <div class="mb-3" >
   <label for="name">Name</label>
 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$course->name}}">

@@ -52,6 +52,8 @@
     <strong class="alert alert-danger w-100">{{session('deleted')}}</strong>
     @endif
   </div>
+  
+  @if($notices->isNotEmpty())
   <div class="card shadow mb-4">
 
     <div class="card-header py-3">
@@ -105,6 +107,11 @@
       </div>
     </div>
   </div>
+  @else
+  <div class="container text-center mt-4">
+<h1>No Notice Created Yet</h1>
+</div>
+  @endif
 
   @endsection
 
