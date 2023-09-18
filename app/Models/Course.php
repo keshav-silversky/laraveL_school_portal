@@ -26,12 +26,19 @@ class Course extends Model
     {
         return $this->belongsToMany(Comment::class);
     }
-
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 
 
     public function notices()
     {
         return $this->hasMany(Notice::class);
+    }
+    public function progress()
+    {
+        return $this->hasOne(Progress::class);
     }
 
     public function setImageAttribute($value)

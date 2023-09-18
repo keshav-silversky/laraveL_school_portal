@@ -4,6 +4,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProgressController;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -52,14 +54,46 @@ Route::delete('/course/{comment}/delete/comment',[CommentController::class,'dest
 Route::get('/course/{course}/enrolled/student',[HomeController::class,'student_list'])->name('student.list');
 
 
+// Payment 
+
+Route::get('/payment/{course}',[PaymentController::class,'index'])->name('payment.create');
+Route::post('/payment/{course}',[PaymentController::class,'store'])->name('payment.store');
+Route::get('/course/repayment/{payment}',[PaymentController::class,'edit'])->name('payment.edit');
+Route::PUT('/course/repayment/{payment}',[PaymentController::class,'update'])->name('payment.update');
 
 
-Route::get('/hello',function(){
-    $user = auth()->user();
-    $user->load('enroll');
-    return  $user;
-    return  $user->courses;
- // $user = User::find(3);
- $user = User::whereId(3)->with('courses')->get();
- ddd($user->load('courses'));
+
+// Progress 
+
+Route::get('/progress/{course}/course',[ProgressController::class,'index'])->name('progress.index');
+Route::post('/progress/{course}/course',[ProgressController::class,'store'])->name('progress.store');
+Route::PUT('/course/{progress}/progress/update',[ProgressController::class,'update'])->name('progress.update');
+
+
+
+
+
+
+
+
+// Route::get('/hello',function(){
+//     $user = auth()->user();
+//     $user->load('enroll');
+//     return  $user;
+//     return  $user->courses;
+//  // $user = User::find(3);
+//  $user = User::whereId(3)->with('courses')->get();
+//  ddd($user->load('courses'));
+// });
+
+
+Route::get('/test',function(){
+
+    $user = User::find(3);
+// $user = User::whereId(3)->with('cccccc')->first();
+$data[0] = $user->cccccc->name;
+// $data[1] = $user->cccccc->user_id;
+$data[1] = $user->cccccc->price;
+ddd ($data);
+
 });

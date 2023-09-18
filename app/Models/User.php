@@ -55,10 +55,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Course::class);
     }
+    public function cccccc()
+    {
+        return $this->hasOne(Course::class);
+    }
 
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class);
     }
 
 

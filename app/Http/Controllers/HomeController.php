@@ -32,16 +32,26 @@ class HomeController extends Controller
         else
         {
             $user = auth()->user();
+    
+       
             // $courses = $user->enroll()->get();
             // $courses = $user->enroll()->with('user')->get();
                //  $courses = $user->enroll()->with('user')->get();
                  
-               $courses = $user->enroll()->with(['users' => function($query)
-               {
-                $query->select('name');
-               }])->get();
+            //    $courses = $user->enroll()->with(['user' => function($query)
+            //    {
+            //     $query->select('*');
+            //    }])->get();
 
-            return view('student.dashboard',['courses' => $courses]);
+            // $courses = $user->enroll()->with(['user','payments'])->get();
+
+            // $courses = $user->enroll()->with(['user','payment'])->get();  
+            // $courses = $user->load(['enroll.user']);     
+            $courses = $user->load(['enroll.payment','enroll.user']);
+         
+            return view('student.dashboard',[
+                'courses' => $courses,
+            ]);
         }
      
     }
