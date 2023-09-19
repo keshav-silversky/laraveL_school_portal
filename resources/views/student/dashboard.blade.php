@@ -16,6 +16,12 @@
     <span class="alert alert-success w-100">{{session('progress_updated')}}</span>
     @endif
   </div>
+  <div class="row">
+    @if(session('certificate'))
+    <span class="alert alert-warning w-100">{{session('certificate')}}</span>
+    @endif
+  </div>
+  
   
 
 
@@ -63,16 +69,25 @@
                 <a href="{{route('comments',$course->id)}}"><button class="btn btn-outline-info">Comments</button></a>
               </td>
               <td>
+                {{-- {{dd($course->payment[0]->status)}} --}}
                 @if(empty($course->payment))
                 <a href="{{route('payment.create',$course->id)}}"><button class="btn btn-outline-success">Payment</button></a>
                 @elseif($course->payment->status == Config('constants.payment.pending'))
             <button class="btn btn-outline-warning">Pending</button>
                 @elseif($course->payment->status == Config('constants.payment.rejected'))
                 <a href="{{route('payment.edit',$course->payment->id)}}"><button class="btn btn-outline-danger">Rejected</button></a>
-                @elseif($course->payment->status == Config('constants.payment.approved'))
+                @elseif($course->payment->status == Config('constants.payment.approved') && $course->progress == NULL || $course->progress->progress !== 100 )
                 <a href="{{route('progress.index',$course->id)}}"><button class="btn btn-primary">Start Course</button></a>
-
-
+                @elseif($course->progress->progress == 100 && $course->progress->certificate == NULL)
+                <form method="post"action="{{route('progress.certificate',$course->progress->id)}}">
+                  @csrf
+                  @method('PUT')
+                <button type="submit" class="btn btn-outline-success">Request For Certificate</button>
+              </form>
+              @elseif($course->progress->progress == 100 && $course->progress->certificate == Config('constants.progress.certificate'))
+              <button class="btn btn-outline-info">Wait For Certificate</button>
+              @else
+              <a href="/storage/payment/{{$course->progress->certificate}}" target="_blank" ><button class="btn btn-outline-success">Download Certificate</button></a> 
                 @endif
               </td>
 

@@ -21,25 +21,34 @@ class Course extends Model
         return $this->belongsTo(User::class); 
     }
     
-
     public function comments()
     {
-        return $this->belongsToMany(Comment::class);
-    }
+        return $this->hasMany(Comment::class);
+    } // Right
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    } // Right
+
     public function payment()
     {
-        return $this->hasOne(Payment::class);
-    }
+        return $this->hasOne(Payment::class)->latest('id');
+    } // Right
+
 
 
     public function notices()
     {
         return $this->hasMany(Notice::class);
-    }
+    } // Right
+    public function progresses()
+    {
+        return $this->hasMany(Progress::class);
+    } // Right
     public function progress()
     {
-        return $this->hasOne(Progress::class);
-    }
+        return $this->hasOne(Progress::class)->latest('id');
+    } // Right
 
     public function setImageAttribute($value)
     {

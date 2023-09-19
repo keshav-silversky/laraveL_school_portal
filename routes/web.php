@@ -24,50 +24,70 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-}); 
+});
 
 Auth::routes();
 
-Route::middleware('auth')->group(function(){    
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 
 
-Route::middleware('roleAuthenticate')->group(function(){
-    Route::resource('course',CourseController::class);
-Route::get('/enroll/{course}',[CourseController::class,'enroll'])->name('enroll');
-Route::put('/enroll/attach/{user}',[CourseController::class,'attach'])->name('course.attach');
-Route::delete('/enroll/detach/{user}',[CourseController::class,'detach'])->name('course.detach');
-Route::get('/courses/{course}/notice',[NoticeController::class,'index'])->name('course.notices');
-Route::post('/courses/{course}/notice/create',[NoticeController::class,'store'])->name('notice.store');
-Route::delete('/course/notices/{notice}/delete',[NoticeController::class,'destroy'])->name('notice.delete');
+Route::middleware('roleAuthenticate')->group(function () {
+    Route::resource('course', CourseController::class);
+    Route::get('/enroll/{course}', [CourseController::class, 'enroll'])->name('enroll');
+    Route::put('/enroll/attach/{user}', [CourseController::class, 'attach'])->name('course.attach');
+    Route::delete('/enroll/detach/{user}', [CourseController::class, 'detach'])->name('course.detach');
+    Route::get('/courses/{course}/notice', [NoticeController::class, 'index'])->name('course.notices');
+    Route::post('/courses/{course}/notice/create', [NoticeController::class, 'store'])->name('notice.store');
+    Route::delete('/course/notices/{notice}/delete', [NoticeController::class, 'destroy'])->name('notice.delete');
 });
 
 
 
-Route::get('/course/{course}/comments',[CommentController::class,'index'])->name('comments');
-Route::post('/course/comments',[CommentController::class,'store'])->name('comment.store');
-Route::delete('/course/{comment}/delete/comment',[CommentController::class,'destroy'])->name('comment.delete');
+Route::get('/course/{course}/comments', [CommentController::class, 'index'])->name('comments');
+Route::post('/course/comments', [CommentController::class, 'store'])->name('comment.store');
+Route::delete('/course/{comment}/delete/comment', [CommentController::class, 'destroy'])->name('comment.delete');
 
 
-Route::get('/course/{course}/enrolled/student',[HomeController::class,'student_list'])->name('student.list');
+Route::get('/course/{course}/enrolled/student', [HomeController::class, 'student_list'])->name('student.list');
 
 
 // Payment 
 
-Route::get('/payment/{course}',[PaymentController::class,'index'])->name('payment.create');
-Route::post('/payment/{course}',[PaymentController::class,'store'])->name('payment.store');
-Route::get('/course/repayment/{payment}',[PaymentController::class,'edit'])->name('payment.edit');
-Route::PUT('/course/repayment/{payment}',[PaymentController::class,'update'])->name('payment.update');
+Route::get('/payment/{course}', [PaymentController::class, 'index'])->name('payment.create');
+Route::post('/payment/{course}', [PaymentController::class, 'store'])->name('payment.store');
+Route::get('/course/repayment/{payment}', [PaymentController::class, 'edit'])->name('payment.edit');
+Route::PUT('/course/repayment/{payment}', [PaymentController::class, 'update'])->name('payment.update');
+
+
+// Manage Payment Teacher
+
+
+Route::get('/manage/payments', [PaymentController::class, 'manage'])->name('payment.manage');
+Route::put('/manage/payments/{payment}/update', [PaymentController::class, 'payment_decision'])->name('payment.update.decide');
+
+// Manage Payment Teacher
+
+// Manage Progress Teacher
+
+Route::get('/manage/progress/certificate', [ProgressController::class, 'view_certificate'])->name('manage.progress.certificate');
+Route::put('upload/progress/{progress}/certificate', [ProgressController::class, 'certificate_upload'])->name('certificate.upload');
+
+// Manage Progress Teacher
+
+
+
 
 
 
 // Progress 
 
-Route::get('/progress/{course}/course',[ProgressController::class,'index'])->name('progress.index');
-Route::post('/progress/{course}/course',[ProgressController::class,'store'])->name('progress.store');
-Route::PUT('/course/{progress}/progress/update',[ProgressController::class,'update'])->name('progress.update');
+Route::get('/progress/{course}/course', [ProgressController::class, 'index'])->name('progress.index');
+Route::post('/progress/{course}/course', [ProgressController::class, 'store'])->name('progress.store');
+Route::PUT('/course/{progress}/progress/update', [ProgressController::class, 'update'])->name('progress.update');
+Route::PUT('/course/{progress}/certificate', [ProgressController::class, 'certificate'])->name('progress.certificate');
 
 
 
@@ -87,13 +107,16 @@ Route::PUT('/course/{progress}/progress/update',[ProgressController::class,'upda
 // });
 
 
-Route::get('/test',function(){
+// Route::get('/test',function(){
 
-    $user = User::find(3);
-// $user = User::whereId(3)->with('cccccc')->first();
-$data[0] = $user->cccccc->name;
-// $data[1] = $user->cccccc->user_id;
-$data[1] = $user->cccccc->price;
-ddd ($data);
+// $user = User::find(4);
+// $user = User::whereId(3)->with('courses')->first();
+// $data[1] = $user->courses->user_id;
+// $user->courses[1]->price;
+// ddd($user);
 
+// });
+
+Route::get('/input', function () {
+    return view('input');
 });

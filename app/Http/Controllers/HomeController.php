@@ -32,23 +32,34 @@ class HomeController extends Controller
         else
         {
             $user = auth()->user();
-    
-       
             // $courses = $user->enroll()->get();
             // $courses = $user->enroll()->with('user')->get();
-               //  $courses = $user->enroll()->with('user')->get();
-                 
+               //  $courses = $user->enroll()->with('user')->get();  
             //    $courses = $user->enroll()->with(['user' => function($query)
             //    {
             //     $query->select('*');
             //    }])->get();
-
             // $courses = $user->enroll()->with(['user','payments'])->get();
 
-            // $courses = $user->enroll()->with(['user','payment'])->get();  
-            // $courses = $user->load(['enroll.user']);     
-            $courses = $user->load(['enroll.payment','enroll.user']);
-         
+            $courses = $user->load(['enroll']);
+            // $user->enroll->load(['payment','user','progress']);
+
+                
+            $user->enroll->load([
+                'payment' => function($query)
+                {
+                return $query->whereUserId(auth()->user()->id);
+                },
+                'user',
+                'progress' => function($query)
+                {
+                return $query->whereUserId(auth()->user()->id);
+                }
+        ]);
+
+            // return $user->enroll[0]->progresses;
+            
+            
             return view('student.dashboard',[
                 'courses' => $courses,
             ]);

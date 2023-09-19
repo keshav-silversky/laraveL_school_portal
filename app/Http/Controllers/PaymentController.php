@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaymentRequest;
 use App\Models\Course;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 // use config\constants;
 
@@ -94,12 +95,37 @@ class PaymentController extends Controller
         // $data['amount'] = $payment->amount;
         $data['status'] = Config('constants.payment.pending');
         $data->save();
-
-
-        dd("completed");    
-
-
-
-
+        return redirect('home');
     }
+
+
+    public function manage()
+    {
+        // $user = auth()->user();
+        // $user = auth()->user()->with('courses')->get();
+
+        $user = auth()->user()->load('courses');
+        $user->courses->load(['payments' => function ($query) {
+            return $query->where('status', Config('constants.payment.pending'))->with('user')->get();
+        }]);
+
+        return view('teacher.payment.manage', ['user' => $user]);
+    }
+
+    public function payment_decision(Request $request, Payment $payment)
+    {
+        if ($request->action == 'accept') {
+            Payment::find($payment->id)->update(['status' => Config('constants.payment.approved')]);
+            session()->flash('approved', "Payment Approved Successfully");
+            return back();
+        } else if ($request->action == 'reject') {
+            Payment::find($payment->id)->update(['status' => Config('constants.payment.rejected')]);
+            session()->flash('rejected', "Payment Rejected Successfully");
+            return back();
+        } else {
+            session()->flash('unauthorized', "Unauthorized Action");
+            return back();
+        }
+    }
+
 }

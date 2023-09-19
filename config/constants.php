@@ -4,7 +4,10 @@ return [
       'pending' => 'pending',
       'approved' => 'approved',
       'rejected' => 'rejected',
-      'requested' => 'requested_certificate'
-      // etc
+
+    // etc
+  ],
+  'progress' => [
+    'certificate' => 'requested_certificate'
   ]
 ];

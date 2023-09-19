@@ -12,13 +12,10 @@ class Comment extends Model
     protected $guarded = ['id'];
 
 
-    public function courses()
+    public function course()
     {
-        return $this->belongsToMany(Course::class);
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Course::class);
     }
 
+    
 }

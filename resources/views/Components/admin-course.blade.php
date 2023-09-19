@@ -9,6 +9,7 @@
       <h6 class="collapse-header"> Courses</h6>
       <a class="collapse-item " href="{{route('course.index')}}">View All Course</a>
       <a class="collapse-item " href="{{route('course.create')}}">Create A Course</a>
+      {{-- <a class="collapse-item" href="{{route('payment.manage')}}">Manage Payments</a> --}}
       <a class="collapse-item" href="">Enroll Student</a>
 
     </div>

@@ -27,9 +27,10 @@
 
   </div>
 
-{{$errors}}
 
-  @if(empty($course->progress))
+
+
+  @if($course->progress == NULL)
   <form method="post" action="{{route('progress.store',$course)}}">
     @else
     <form method="post" action="{{route('progress.update',$course->progress->id)}}">

@@ -50,28 +50,12 @@ class User extends Authenticatable
     public function enroll()
     {
         return $this->belongsToMany(Course::class);
-    }
+    } // right
     public function courses()
     {
         return $this->hasMany(Course::class);
-    }
-    public function cccccc()
-    {
-        return $this->hasOne(Course::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function progress()
-    {
-        return $this->hasMany(Progress::class);
-    }
-
-
-
+    } // right
+ 
     public function hasCourse(User $user,Course $course)
     {
      if($user->enroll()->where('course_id',$course->id)->exists())
@@ -93,4 +77,14 @@ class User extends Authenticatable
     {
         return asset("storage/image/$value");
     }
+        // public function comments()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // } 
+
+    // public function progress()
+    // {
+    //     return $this->hasMany(Progress::class);
+    // }
+
 }

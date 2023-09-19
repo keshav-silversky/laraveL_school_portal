@@ -67,6 +67,8 @@
       
       @if(auth()->user()->role == 'teacher')
       <x-admin-course></x-admin-course>
+      <x-admin-manage></x-admin-manage>
+
       @endif
 
       {{-- <li class="nav-item">
