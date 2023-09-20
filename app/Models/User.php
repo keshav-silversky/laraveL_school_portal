@@ -67,6 +67,10 @@ class User extends Authenticatable
         return false;
      }
     }
+    public function progress()
+    {
+        return $this->hasOne(Progress::class);
+    }
 
 
     public function setImageAttribute($value)
@@ -77,6 +81,10 @@ class User extends Authenticatable
     {
         return asset("storage/image/$value");
     }
+
+    // public function setHobbiesAttribute($value)
+    // {
+    // }
         // public function comments()
     // {
     //     return $this->hasMany(Comment::class);

@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgressController;
+use App\Http\Controllers\UserProfileUpdateController;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -34,8 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/update/user/profile', [UserProfileUpdateController::class, 'index'])->name('update.profile');
 });
 
-
-Route::put('/update/user/{user}/profile', [UserProfileUpdateController::class, 'update'])->name('user.profile.update');
+Route::put('/update/profile/{user}/user', [UserProfileUpdateController::class, 'update'])->name('user.profile.update');
 
 
 

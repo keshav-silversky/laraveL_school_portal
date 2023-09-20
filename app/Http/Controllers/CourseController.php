@@ -67,11 +67,16 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Course $course)
     {
-        //
-    }
 
+        $course->load(['students']);
+        $course->students->load(['progress' => function ($query) use ($course) {
+            return $query->whereCourseId($course->id);
+        }]);
+
+        return view('teacher.courses.view_enroll', ['course' => $course]);
+    }
     /**
      * Show the form for editing the specified resource.
      *

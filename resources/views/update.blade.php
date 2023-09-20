@@ -1,7 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+
+
     <div class="container">
+
+
+        <div class="row">
+
+            @if(session('updated'))
+            <strong class="alert alert-success w-100">{{session('updated')}}</strong>
+            @elseif(session('nothing_changed'))
+            <strong class="alert alert-warning w-100">{{session('nothing_changed')}}</strong>
+            @endif
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -94,10 +107,9 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" name="email" placeholder="Enter Email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{$user->email}}">
-
+                                    <input id="email" type="email"
+                                        class="form-control "
+                                        value="{{$user->email}}" disabled>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
