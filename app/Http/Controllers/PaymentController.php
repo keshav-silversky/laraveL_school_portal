@@ -112,7 +112,7 @@ class PaymentController extends Controller
         return view('teacher.payment.manage', ['user' => $user]);
     }
 
-    public function payment_decision(Request $request, Payment $payment)
+    public function paymentDecision(Request $request, Payment $payment)
     {
         if ($request->action == 'accept') {
             Payment::find($payment->id)->update(['status' => Config('constants.payment.approved')]);

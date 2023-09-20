@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
@@ -30,7 +31,12 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/update/user/profile', [UserProfileUpdateController::class, 'index'])->name('update.profile');
 });
+
+
+Route::put('/update/user/{user}/profile', [UserProfileUpdateController::class, 'update'])->name('user.profile.update');
+
 
 
 
@@ -51,7 +57,7 @@ Route::post('/course/comments', [CommentController::class, 'store'])->name('comm
 Route::delete('/course/{comment}/delete/comment', [CommentController::class, 'destroy'])->name('comment.delete');
 
 
-Route::get('/course/{course}/enrolled/student', [HomeController::class, 'student_list'])->name('student.list');
+Route::get('/course/{course}/enrolled/student', [HomeController::class, 'studentList'])->name('student.list');
 
 
 // Payment 
@@ -66,7 +72,7 @@ Route::PUT('/course/repayment/{payment}', [PaymentController::class, 'update'])-
 
 
 Route::get('/manage/payments', [PaymentController::class, 'manage'])->name('payment.manage');
-Route::put('/manage/payments/{payment}/update', [PaymentController::class, 'payment_decision'])->name('payment.update.decide');
+Route::put('/manage/payments/{payment}/update', [PaymentController::class, 'paymentDecision'])->name('payment.update.decide');
 
 // Manage Payment Teacher
 

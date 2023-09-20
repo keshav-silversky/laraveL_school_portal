@@ -6,7 +6,7 @@
   </a>
   <div id="collapseManage" class="collapse " aria-labelledby="headingManage" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
-      <h6 class="collapse-header"> Courses</h6>
+      <h6 class="collapse-header"> Manage</h6>
     
       <a class="collapse-item" href="{{route('payment.manage')}}">Payments</a>
       <a class="collapse-item" href="{{route('manage.progress.certificate')}}">Certificate</a>

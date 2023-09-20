@@ -67,7 +67,7 @@ class HomeController extends Controller
      
     }
 
-    public function student_list(Course $course)
+    public function studentList(Course $course)
     {
      
         // $course = $course->load(['users' => function($query){
