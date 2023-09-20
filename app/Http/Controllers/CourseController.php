@@ -20,7 +20,7 @@ class CourseController extends Controller
     {
         $courses = auth()->user()->courses()->paginate(5);
 
-        return view('teacher.courses.index',['courses' => $courses]);
+        return view('teacher.courses.index', ['courses' => $courses]);
     }
 
     /**
@@ -41,8 +41,7 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
-        try
-        {
+        try {
             $course = new Course;
             $image = $request->file('image');
             $filesave = $image->store('public/course');
@@ -50,15 +49,11 @@ class CourseController extends Controller
             $course->price = $request->price;
             $course->image = $filesave;
             auth()->user()->courses()->save($course);
-            session()->flash('created','Course Created Successfully');
+            session()->flash('created', 'Course Created Successfully');
             return back();
-    
+        } catch (Throwable $t) {
+            session()->flash('not_created', 'Something Went Wrong');
         }
-        catch(Throwable $t)
-        {
-            session()->flash('not_created','Something Went Wrong');
-        }
-       
     }
 
     /**
@@ -85,8 +80,8 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        $this->authorize('view',$course);
-        return view('teacher.courses.edit',['course' => $course]);
+        $this->authorize('view', $course);
+        return view('teacher.courses.edit', ['course' => $course]);
     }
 
     /**
@@ -98,7 +93,7 @@ class CourseController extends Controller
      */
     public function update(Course $course)
     {
-        $this->authorize('update',$course);
+        $this->authorize('update', $course);
         $inputs = request()->validate([
             'image' => 'mimes:jpg,png,PNG,jpeg',
             'name' => 'required | string | min:3 ',
@@ -106,27 +101,20 @@ class CourseController extends Controller
         ]);
         $course->name = $inputs['name'];
         $course->price = $inputs['price'];
-        if($image = request()->file('image'))
-        {
-           $filesave = $image->store('public/course');
-           $course->image = $filesave;
+        if ($image = request()->file('image')) {
+            $filesave = $image->store('public/course');
+            $course->image = $filesave;
         }
 
-        if($course->isDirty())
-        {
+        if ($course->isDirty()) {
             // $course->save();
             auth()->user()->courses()->save($course);
-            session()->flash('updated',"Course Updated Successfully");
+            session()->flash('updated', "Course Updated Successfully");
             return back();
-
-        }
-        else
-        {
-            session()->flash('not_updated',"Nothing To Update");
+        } else {
+            session()->flash('not_updated', "Nothing To Update");
             return back();
         }
-    
-
     }
 
     /**
@@ -137,45 +125,42 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-       
-        $this->authorize('delete',$course);
-        try
-        {
-            Course::find($course->id)->delete(); // findOrFail
-            session()->flash('deleted','Course Deleted Successfully');
-            return back();
-        }
-        catch(Throwable $t)
-        {
-            session()->flash('not_deleted',"Something Went Wrong");
-            return back();
 
+        $this->authorize('delete', $course);
+        try {
+            Course::find($course->id)->delete(); // findOrFail
+            session()->flash('deleted', 'Course Deleted Successfully');
+            return back();
+        } catch (Throwable $t) {
+            session()->flash('not_deleted', "Something Went Wrong");
+            return back();
         }
-  
     }
 
     public function enroll(Course $course)
     {
-        return view('teacher.courses.enroll',
-        [
-            'course' => $course,
-            'users' => User::where('role','student')->paginate(10)
-            
-        ]);
+        return view(
+            'teacher.courses.enroll',
+            [
+                'course' => $course,
+                'users' => User::where('role', 'student')->paginate(10)
+
+            ]
+        );
     }
 
-    public function attach(User $user,Request $request)
+    public function attach(User $user, Request $request)
     {
-      
+
         $user->enroll()->attach($request->course_id);
-        session()->flash('attached',"Student Attached Successfully");
+        session()->flash('attached', "Student Attached Successfully");
         return back();
     }
-    public function detach(User $user,Request $request)
+    public function detach(User $user, Request $request)
     {
-      
+
         $user->enroll()->detach($request->course_id);
-        session()->flash('detached',"Student Detached Successfully");
+        session()->flash('detached', "Student Detached Successfully");
         return back();
     }
 
@@ -187,7 +172,7 @@ class CourseController extends Controller
     //         'course' => $course
     //     ]);
     // }
-    
+
 
 
 }

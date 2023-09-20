@@ -45,6 +45,7 @@ class Course extends Model
     {
         return $this->hasMany(Notice::class);
     } // Right
+    
     public function progresses()
     {
         return $this->hasMany(Progress::class);

@@ -34,6 +34,10 @@
       <div class="table-responsive">
         <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
           <thead>
+            <div class="d-grid gap-2 mb-2 d-md-flex justify-content-md-end mr-10">
+
+              <a href="{{route('notice.show',auth()->user()->id)}}"><button class="btn btn-warning" type="button">&#9888; Notices</button></a>
+            </div>
             <tr>
               <th>Image</th>
               <th>Course Name</th>

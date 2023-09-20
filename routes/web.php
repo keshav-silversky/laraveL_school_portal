@@ -9,6 +9,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\UserProfileUpdateController;
 use App\Models\Comment;
+use App\Models\Notice;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,15 @@ Route::middleware('roleAuthenticate')->group(function () {
     Route::post('/courses/{course}/notice/create', [NoticeController::class, 'store'])->name('notice.store');
     Route::delete('/course/notices/{notice}/delete', [NoticeController::class, 'destroy'])->name('notice.delete');
 });
+
+
+// View Notice Student
+
+Route::get('/notice/view/{user}', [NoticeController::class, 'show'])->name('notice.show');
+
+
+
+
 
 
 
@@ -102,26 +112,26 @@ Route::PUT('/course/{progress}/certificate', [ProgressController::class, 'certif
 
 
 
-// Route::get('/hello',function(){
-//     $user = auth()->user();
-//     $user->load('enroll');
-//     return  $user;
-//     return  $user->courses;
-//  // $user = User::find(3);
-//  $user = User::whereId(3)->with('courses')->get();
-//  ddd($user->load('courses'));
-// });
 
 
-// Route::get('/test',function(){
+Route::get('/hello', function () {
+    $user = auth()->user();
+    $user->load('enroll');
 
-// $user = User::find(4);
-// $user = User::whereId(3)->with('courses')->first();
-// $data[1] = $user->courses->user_id;
-// $user->courses[1]->price;
-// ddd($user);
 
-// });
+    // $user = User::find(3);
+    $user = User::whereId(3)->with('courses')->get();
+});
+
+
+Route::get('/test', function () {
+
+    $user = User::find(4);
+    $user = User::whereId(3)->with('courses')->first();
+    $data[1] = $user->courses->user_id;
+    $user->courses[1]->price;
+    ddd($user);
+});
 
 Route::get('/input', function () {
     return view('input');
