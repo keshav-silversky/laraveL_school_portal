@@ -44,25 +44,15 @@ class HomeController extends Controller
                 'courses' => $courses,
             ]);
         }
-        // $user->enroll->load(['payment','user','progress']);
-        // $courses = $user->enroll()->get();
-        // $courses = $user->enroll()->with('user')->get();
-        //  $courses = $user->enroll()->with('user')->get();  
-        //    $courses = $user->enroll()->with(['user' => function($query)
-        //    {
-        //     $query->select('*');
-        //    }])->get();
-        // $courses = $user->enroll()->with(['user','payments'])->get();
-        // return $user->enroll[0]->progresses;
+
 
     }
 
     public function studentList(Course $course)
     {
-
-        // $course = $course->load(['users' => function($query){
-        //     return $query->where('id','!=',auth()->user()->id);
-        // }]);
+        $this->authorize('view', $course);
+        $result = auth()->user()->enroll;
+      
         $course = $course->load(['users' => function ($query) {
             return $query->where('id', '!=', auth()->user()->id);
         }]);

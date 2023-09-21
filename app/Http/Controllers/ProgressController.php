@@ -5,20 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Progress;
 use Illuminate\Http\Request;
+use App\Policies\ProgressPolicy;
 
 class ProgressController extends Controller
 {
     public function index(Course $course)
     {
-        // dd($course);
+        // $this->authorize('view', $course);
         $course = $course->load(['progress' => function ($query) {
             return $query->whereUserId(auth()->user()->id);
         }]);
+
       
         return view('student.progress.index',['course' => $course]);
     }
     public function store(Request $request,Course $course)
     {
+
+
         $request->validate([
             'progress' => 'required'
         ]);
@@ -56,7 +60,6 @@ class ProgressController extends Controller
     public function view_certificate()
     {
         $user = auth()->user();
-
         $user->load('courses');
         $user->courses->load(['progresses' => function ($query) {
             return $query->where('progress', '100')->where('certificate', Config('constants.progress.certificate'))->with('user');

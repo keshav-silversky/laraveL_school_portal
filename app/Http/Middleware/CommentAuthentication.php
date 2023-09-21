@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Course;
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\User;
 
-class RoleAuthentication
+class CommentAuthentication
 {
     /**
      * Handle an incoming request.
@@ -14,15 +16,15 @@ class RoleAuthentication
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next,  $course)
     {
-        if (auth()->user()->role == $role)
-        {
-        return $next($request);
-        }
-        else
-        {
-        return back();
-        }
+
+
+        // $user = auth()->user();
+        // if ($user->hasCourse($user, $course)) {
+        //     return $next($request);
+        // } else {
+        //     return abort(403, 'fjklsdhfipasdghfuiah');
+        // }
     }
 }

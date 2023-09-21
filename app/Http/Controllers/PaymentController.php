@@ -101,8 +101,8 @@ class PaymentController extends Controller
 
     public function manage()
     {
-        // $user = auth()->user();
-        // $user = auth()->user()->with('courses')->get();
+
+        // $this->authorize('view');    
 
         $user = auth()->user()->load('courses');
         $user->courses->load(['payments' => function ($query) {
@@ -114,6 +114,7 @@ class PaymentController extends Controller
 
     public function paymentDecision(Request $request, Payment $payment)
     {
+        
         if ($request->action == 'accept') {
             Payment::find($payment->id)->update(['status' => Config('constants.payment.approved')]);
             session()->flash('approved', "Payment Approved Successfully");

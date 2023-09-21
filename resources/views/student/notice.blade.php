@@ -37,19 +37,18 @@ View Notices
             @foreach($course->payment->course->notices as $notice)
 
             <tr>
-              <td><img src="{{$course->image}}" alt="" height="60px" width="60px"></td>
+              <td><img src="{{$course->image}}" alt="Course Avatar" height="60px" width="60px"></td>
               <td>{{$course->name}}</td>
               <td>{{$notice->subject}}</td>
               <td>{{$notice->description}}</td>
     
             </tr>
 
-       
-        
             @endforeach
             @endif
-     
-          @endforeach
+            @endforeach
+        
+  
   
    
 
@@ -67,3 +66,12 @@ View Notices
 
   @endsection
 </x-master>
+{{-- @foreach ($notices as $user)
+
+
+@foreach ($user->payments as $payment)
+@foreach ($payment->notices as $notice)
+    
+@endforeach
+@endforeach
+@endforeach --}}

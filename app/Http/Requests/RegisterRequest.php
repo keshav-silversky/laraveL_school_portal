@@ -26,15 +26,15 @@ class RegisterRequest extends FormRequest
     {
         return [
             // "role" => ['required'],
-            // "image" => ['required','file','size:2048'],
-            // "name" => ['required','min:3','max:100'],
-            // "email" => ['required','email','unique:users'],
-            // "mob" => ['required','numeric','min:10','max:10'],
+            // "image" => ['required', 'file', 'size:2048'],
+            // "name" => ['required', 'min:3', 'max:100'],
+            // "email" => ['required', 'email', 'unique:users'],
+            // "mob" => ['required', 'numeric', 'min:10', 'max:10'],
             // "dob" => ['required', 'date', "before" => Carbon::now()],
-            //     "address" => ['required','min:3','max:200'],
-            //     "gender" => ['required'],
-            //     "hobbies" => ['required'],
-            //     "password" => ['required','min:8','max:40']
+            // "address" => ['required', 'min:3', 'max:200'],
+            // "gender" => ['required'],
+            // "hobbies" => ['required'],
+            // "password" => ['required', 'min:8', 'max:40']
         ];
     }
 }

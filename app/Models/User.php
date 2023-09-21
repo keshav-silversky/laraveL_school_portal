@@ -75,6 +75,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    } 
+    //search 
+
+    //search 
+
 
 
     public function setImageAttribute($value)
@@ -86,13 +94,12 @@ class User extends Authenticatable
         return asset("storage/image/$value");
     }
 
+
+
     // public function setHobbiesAttribute($value)
     // {
     // }
-        // public function comments()
-    // {
-    //     return $this->hasMany(Comment::class);
-    // } 
+  
 
     // public function progress()
     // {

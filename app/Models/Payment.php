@@ -25,6 +25,10 @@ class Payment extends Model
     {
         return $this->belongsTo(Course::class);
     }
+    public function notices()
+    {
+        return $this->hasMany(Notice::class, 'course_id', 'course_id');
+    }
 
 
     public function setPdfAttribute($value)

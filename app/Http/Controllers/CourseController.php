@@ -64,7 +64,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-
+        $this->authorize('view', $course);
         $course->load(['students']);
         $course->students->load(['progress' => function ($query) use ($course) {
             return $query->whereCourseId($course->id);
@@ -139,6 +139,7 @@ class CourseController extends Controller
 
     public function enroll(Course $course)
     {
+        $this->authorize('view', $course);
         return view(
             'teacher.courses.enroll',
             [

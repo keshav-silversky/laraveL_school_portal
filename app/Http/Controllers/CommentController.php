@@ -10,10 +10,14 @@ class CommentController extends Controller
 {
     public function index(Course $course)
     {
+        $this->middleware('CommentAuthentication', [$course]);
+
+        // $this->authorize('view', $course);
         // $comments = Comment::where('course_id',$course->id)->get();
+        $comments = Comment::where('course_id', $course->id)->with('user')->orderBy('created_at', 'desc')->get();
 
-
-        $comments = Comment::where('course_id',$course->id)->with('user')->orderBy('created_at','desc')->get();
+        // return $comments;   
+        
         // return view('student.comment',['comments' => $comments]);
         return view('student.comment',
         [
