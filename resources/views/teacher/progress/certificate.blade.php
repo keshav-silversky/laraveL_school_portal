@@ -1,7 +1,7 @@
 <x-master>
 
     @section('page-title')
-        Manage Payments
+        Manage Certificate
     @endsection
 
     @section('content')
@@ -12,7 +12,8 @@
                 @endif
             </div>
 
-            
+       
+         
             <div class="row">
 
                 <div class="card-body">
@@ -81,8 +82,9 @@
                 </div>
 
             </div>
-
-
+      
+     
+    
         </div>
     @endsection
 

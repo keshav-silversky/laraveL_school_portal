@@ -69,7 +69,14 @@
   <div class="card-body">
   <h5 class="card-text font-weight-bold"><i class="fas fa-money-bill-wave"></i> Payments</h5>
   
-  <h1 class="card-text font-weight-bold">&#8377; {{ $user->payment_sum_sum_amount}}</h1>
+  <h1 class="card-text font-weight-bold">
+    @if ( is_null($user->payment_sum_sum_amount) )
+    &#8377; 0
+    @else 
+    &#8377; {{$user->payment_sum_sum_amount}}
+    @endif
+
+  </h1>
 
   </div>
   </div>

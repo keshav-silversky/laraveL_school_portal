@@ -104,6 +104,7 @@ class PaymentController extends Controller
             return $query->where('status', Config('constants.payment.pending'))->with('user')->get();
         }]);
 
+        
         return view('teacher.payment.manage', ['user' => $user]);
     }
 

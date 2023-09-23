@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
+
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate as FacadesGate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,8 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         'App\Models\Progress' => 'App\Policies\ProgressPolicy',
         'App\Models\Payment' => 'App\Policies\PaymentPolicy',
-
-        'App\HomeController' => 'App\Policies\HomePolicy',
+        'App\Payment' => 'App\Policies\HomePolicy',
     ];
 
     /**
@@ -28,6 +30,13 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::define('view-enrolled', function ($user, $course) {
+            if ($user->enroll()->where('course_id', $course->id)->exists()) {
+                return true;
+            }
+        });
+  
 
         //
     }

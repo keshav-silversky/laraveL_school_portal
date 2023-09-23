@@ -119,7 +119,6 @@
 
     <div class="col-md-6">
         <input id="address" type="text" name="address" placeholder="Enter Address" class="form-control @error('address') is-invalid @enderror" address="address" value="{{ old('address') }}" >
-
         @error('address')
             <span class="invalid-feedback" address="alert">
                 <strong>{{ $message }}</strong>
@@ -134,23 +133,23 @@
 
     <div class="col-md-6">
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" @if(old('gender')=='male') checked @endif>
+            <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="inlineRadio1" value="male" @if(old('gender')=='male') checked @endif>
             <label class="form-check-label" for="inlineRadio1">Male</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female" @if(old('gender')=='female') checked @endif>
+            <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="inlineRadio2" value="female" @if(old('gender')=='female') checked @endif>  
             <label class="form-check-label" for="inlineRadio2">Female</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="other" @if(old('gender')=='other') checked @endif>
+            <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="inlineRadio3" value="other" @if(old('gender')=='other') checked @endif>
             <label class="form-check-label" for="inlineRadio3">Other</label>
           </div>
+         @error('gender')
+          <span class="invalid-feedback" gender="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+             @enderror
 
-        @error('gender')
-            <span class="invalid-feedback" gender="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
     </div>
 </div>
 
@@ -161,15 +160,15 @@
 
     <div class="col-md-6">
         <div class="form-check form-check-inline">
-            <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox1" value="cricket" {{ in_array('cricket', old('hobbies', [])) ? 'checked' : '' }}>
+            <input class="form-check-input @error('hobbies') is-invalid @enderror" name="hobbies[]" type="checkbox" id="inlineCheckbox1" value="cricket" {{ in_array('cricket', old('hobbies', [])) ? 'checked' : '' }}>
             <label class="form-check-label" for="inlineCheckbox1">Cricket</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox2" value="football" {{ in_array('football', old('hobbies', [])) ? 'checked' : '' }}>
+              <input class="form-check-input @error('hobbies') is-invalid @enderror" name="hobbies[]" type="checkbox" id="inlineCheckbox2" value="football" {{ in_array('football', old('hobbies', [])) ? 'checked' : '' }}>
               <label class="form-check-label" for="inlineCheckbox2">Football</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" name="hobbies[]" type="checkbox" id="inlineCheckbox3" value="hockey" {{ in_array('hockey', old('hobbies', [])) ? 'checked' : '' }}>
+              <input class="form-check-input @error('hobbies') is-invalid @enderror" name="hobbies[]" type="checkbox" id="inlineCheckbox3" value="hockey" {{ in_array('hockey', old('hobbies', [])) ? 'checked' : '' }}>
               <label class="form-check-label" for="inlineCheckbox3">Hockey</label>
           </div>
         @error('hobbies')
@@ -179,10 +178,6 @@
         @enderror
     </div>
 </div>
-
-
-
-
 
 
                         <div class="row mb-3">

@@ -21,5 +21,10 @@ class HomePolicy
     }
     public function view(User $user, Course $course)
     {
+        if ($user->enroll()->where('course_id', $course->id)->exists()) {
+            return true;
+        } else {
+            abort(403, 'jsdh');
+        }
     }
 }

@@ -47,8 +47,9 @@ class NoticeController extends Controller
     public function show(User $user)
     {
         $user->load(['enroll.payment' => function ($query) use ($user) {
-            $query->where('status', Config('constants.payment.approved'))->with('course.notices');
+            $query->where('status', Config('constants.payment.approved'))->where('user_id', $user->id)->with('course.notices');
         }]);
+        // dd($user);
         return view('student.notice', ['data' => $user]);
 
 

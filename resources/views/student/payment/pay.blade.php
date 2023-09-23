@@ -6,6 +6,8 @@
 
   @section('content')
 
+
+
   <div class="row mb-4" >
 
     <table class="table text-center border-bottom-warning table-info table-striped" >

@@ -18,8 +18,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = auth()->user()->courses()->paginate(5);
+        $courses = auth()->user()->courses()->orderBy('id', 'desc')->paginate(5);
 
+        
         return view('teacher.courses.index', ['courses' => $courses]);
     }
 

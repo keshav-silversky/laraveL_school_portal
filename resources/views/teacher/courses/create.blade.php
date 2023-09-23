@@ -56,9 +56,16 @@
 </div>
 </form>
 
+
 </div>  {{-- col div --}}
   
 </div>  {{-- row div --}}
+
+<div class="row align-content-center mt-4">
+  <a href="{{route('course.index')}}"><button class="btn btn-outline-primary">View All Courses</button></a>
+  
+</div>
+
 
 
 

@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             //
-            // "image" => ['required', 'file', 'size:2048'],
+            "image" => ['file', 'mimes:jpg,jpeg,png,PNG', 'max:2048'],
             "name" => ['required', 'min:3', 'max:100'],
             // "email" => ['required', 'email', "unique:users,email,{$current_id}"],
             "mob" => ['required', 'numeric', 'digits:10'],

@@ -18,7 +18,9 @@
             @endif
           </div>
 
-            <div class="row">
+
+
+        <div class="row">
 
                 <div class="card-body">
                     <div class="table-responsive">
@@ -29,6 +31,7 @@
                                     <th>Price</th>
                                     <th>Student Name</th>
                                     <th>Email</th>
+                                    <th>Receipt</th>
 
                                     <th colspan="2">Action</th>
 
@@ -40,6 +43,8 @@
                                     <th>Price</th>
                                     <th>Student Name</th>
                                     <th>Email</th>
+                                    <th>Receipt</th>
+
                                     <th>Action</th>
 
                             </tfoot>
@@ -54,6 +59,7 @@
                                         <td>{{$course->price}}</td>
                                         <td>{{$payment->user->name}}</td>
                                         <td>{{$payment->user->email}}</td>
+                                        <td><a href="{{$payment->pdf}}" target="_blank">Receipt</a></td>
                                         <td class="mx-auto">
                                           <form method="post" action="{{route('payment.update.decide',[$course->id,$payment->id])}}" class="mx-auto">
                                             @csrf
@@ -81,6 +87,9 @@
 
 
         </div>
+
+
+      
     @endsection
 
 </x-master>

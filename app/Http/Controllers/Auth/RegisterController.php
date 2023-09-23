@@ -52,11 +52,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'role' => ['required','in:teacher,student','min:3'],
-            "image" => ['required','file','max:2048'],
+            "image" => ['required', 'mimes:jpg,jpeg,png,PNG', 'file', ''],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             "mob" => ['required','regex:/^[6-9]{1}[0-9]{9}$/'],
-            "dob" => ['required','date'],
+            "dob" => ['required', 'date', 'before:' . Carbon::now()],
             "address" => ['required','min:3','max:200'],
             "gender" => ['required'],
             "hobbies" => ['required'],
