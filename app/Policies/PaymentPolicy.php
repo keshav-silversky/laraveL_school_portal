@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Auth;
 
 class PaymentPolicy
 {
@@ -31,8 +30,7 @@ class PaymentPolicy
      */
     public function view(User $user, Payment $payment)
     {
-        // return $user->isAuthenticated();
-        return true;
+        //
     }
 
     /**
@@ -53,9 +51,14 @@ class PaymentPolicy
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Payment $payment)
+    public function update($course, $payment)
     {
-        //
+        if (auth()->user()->id === $course->user_id && $course->payments()->where('id', $payment->id)->exists()) {
+            return true;
+        } else {
+            abort(403, "Unauthorized");
+        }
+        // return auth()->user()->id === $course->user_id; 
     }
 
     /**

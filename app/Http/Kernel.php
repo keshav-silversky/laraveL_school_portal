@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'roleAuthenticate' => \App\Http\Middleware\RoleAuthentication::class,
         'CommentAuthentication' => \App\Http\Middleware\CommentAuthentication::class,
+        'ProgressAuthorize' =>  \App\Http\Middleware\ProgressAuthorize::class,
     ];
 }

@@ -52,6 +52,8 @@
 
               <td class="text-center">
                 <a href="{{ route('course.show', $course->id) }}" class="btn btn-outline-info d-inline-block">View Enrolled</a>
+                <a href="{{ route('comments', $course->id) }}" class="btn btn-outline-info d-inline-block">Comments</a>
+
                 <a href="{{ route('course.notices', $course->id) }}" class="btn btn-warning d-inline-block">Notice</a>
                 <a href="{{ route('enroll', $course->id) }}" class="btn btn-success d-inline-block">Enroll</a>
                 <form method="post" action="{{ route('course.destroy', $course->id) }}" class="d-inline-block">

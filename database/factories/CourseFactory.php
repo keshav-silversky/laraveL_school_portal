@@ -20,7 +20,7 @@ class CourseFactory extends Factory
             'name' => fake()->username(),
             'price' => fake()->numberBetween('1000','2000'),
             'image' => fake()->imageUrl(),
-            'user_id' => '3'
+            'user_id' => '2'
         ];
     }
 }

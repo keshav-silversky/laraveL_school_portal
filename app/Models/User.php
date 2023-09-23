@@ -20,6 +20,7 @@ class User extends Authenticatable
 
 
 
+
      protected $guarded = ['id'];
 
     // protected $fillable = [
@@ -55,6 +56,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Course::class);
     } // right
+
+    public function paymentSum()
+    {
+        return $this->hasManyThrough(Payment::class, Course::class);
+    }
  
     public function hasCourse(User $user,Course $course)
     {

@@ -15,14 +15,11 @@ class ProgressController extends Controller
         $course = $course->load(['progress' => function ($query) {
             return $query->whereUserId(auth()->user()->id);
         }]);
-
-      
         return view('student.progress.index',['course' => $course]);
     }
     public function store(Request $request,Course $course)
     {
-
-
+        // return $course;
         $request->validate([
             'progress' => 'required'
         ]);
@@ -34,23 +31,21 @@ class ProgressController extends Controller
         session()->flash('progress_updated','Progress Updated Successfully');
         return redirect('home');
     }
-    public function update(Request $request,Progress $progress)
+    public function update(Course $course, Request $request, Progress $progress)
 {
 
+    
+        // return $progress;
     $request->validate([
         'progress' => 'required'
     ]);
-
-    $progress_update = Progress::find($progress->id);
-    
-    $progress_update['progress'] = $request->progress;
-    $progress_update->save();
-    session()->flash('progress_updated','Progress Updated Successfully');
-    return redirect('home');
+        Progress::find($progress->id)->update(['progress' => $request->progress]);
+        session()->flash('progress_updated', 'Progress Updated Successfully');
+        return redirect('home');
 }
 
 
-    public function certificate(Progress $progress)
+    public function certificate(Course $course, Progress $progress)
     {
         Progress::find($progress->id)->update(['certificate' => Config('constants.progress.certificate')]);
         session()->flash('certificate', "Requested For Certificate");
@@ -67,8 +62,10 @@ class ProgressController extends Controller
 
         return view('teacher.progress.certificate', ['user' => $user]);
     }
-    public function certificate_upload(Request $request, Progress $progress)
+    public function certificate_upload(Request $request, Course $course, Progress $progress)
     {
+        $this->authorize('update', $course);
+   
         $request->validate([
             'certificate' => 'required | file | mimes:pdf'
         ]);

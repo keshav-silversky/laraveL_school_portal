@@ -53,7 +53,7 @@
                                             <td>
                                                 
                                                 <form method="post"
-                                                    action="{{ route('certificate.upload', $progress->id) }}"
+                                                    action="{{ route('certificate.upload',[$course->id, $progress->id]) }}"
                                                     enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')

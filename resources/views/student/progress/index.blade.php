@@ -33,7 +33,7 @@
   @if($course->progress == NULL)
   <form method="post" action="{{route('progress.store',$course)}}">
     @else
-    <form method="post" action="{{route('progress.update',$course->progress->id)}}">
+    <form method="post" action="{{route('progress.update',[$course->id,$course->progress->id])}}">
     @method('PUT')
       @endif
 

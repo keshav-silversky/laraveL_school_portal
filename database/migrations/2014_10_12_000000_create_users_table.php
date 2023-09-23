@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('mob');
+            $table->bigInteger('mob');
             $table->date('dob');
             $table->string('address');
             $table->string('gender');

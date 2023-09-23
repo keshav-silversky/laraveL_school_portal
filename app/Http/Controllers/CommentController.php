@@ -10,15 +10,10 @@ class CommentController extends Controller
 {
     public function index(Course $course)
     {
-        $this->middleware('CommentAuthentication', [$course]);
 
-        // $this->authorize('view', $course);
-        // $comments = Comment::where('course_id',$course->id)->get();
+
+
         $comments = Comment::where('course_id', $course->id)->with('user')->orderBy('created_at', 'desc')->get();
-
-        // return $comments;   
-        
-        // return view('student.comment',['comments' => $comments]);
         return view('student.comment',
         [
             'course' => $course,
@@ -29,13 +24,11 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $comment = new Comment;
-
         $request->validate([
             'comment' => 'required | min:3'
         ]);
-        $comment->comment = $request->comment; 
+        $comment->comment = $request->comment;
         $comment->course_id = $request->course_id;
-
         auth()->user()->comments()->save($comment);
         session()->flash('success',"Comment Added Successfully");
         return back();

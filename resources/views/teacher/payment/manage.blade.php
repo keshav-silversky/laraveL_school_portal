@@ -13,7 +13,7 @@
             <strong class="alert alert-success w-100">{{session('approved')}}</strong>
             @elseif(session('rejected'))
             <strong class="alert alert-danger w-100">{{session('rejected')}}</strong>
-            @elseif(session('unauthorized'))
+            @elseif(session('failed'))
             <strong class="alert alert-warning w-100">{{session('unauthorized')}}</strong>
             @endif
           </div>
@@ -55,7 +55,7 @@
                                         <td>{{$payment->user->name}}</td>
                                         <td>{{$payment->user->email}}</td>
                                         <td class="mx-auto">
-                                          <form method="post" action="{{route('payment.update.decide',$payment->id)}}" class="mx-auto">
+                                          <form method="post" action="{{route('payment.update.decide',[$course->id,$payment->id])}}" class="mx-auto">
                                             @csrf
                                             @method('PUT')
                                           <button type="submit" name="action" value="accept" class="btn btn-outline-success">Accept</button>

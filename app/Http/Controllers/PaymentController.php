@@ -7,6 +7,8 @@ use App\Models\Course;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Throwable;
+
 // use config\constants;
 
 
@@ -23,18 +25,11 @@ class PaymentController extends Controller
     public function store(PaymentRequest $request,Course $course)
     {
 
-
-
         if($file = $request->file('pdf'))
         {
             $filesave = $file->store('public/payment');
         }
         
-        
-     
-
-
-      
        Payment::create([
         'user_id' => auth()->user()->id,
         'course_id' => $course->id,
@@ -112,21 +107,23 @@ class PaymentController extends Controller
         return view('teacher.payment.manage', ['user' => $user]);
     }
 
-    public function paymentDecision(Request $request, Payment $payment)
+    public function paymentDecision(Request $request, Course $course, Payment $payment)
     {
-        
+        $this->authorize('update', $course, $payment);
+    
         if ($request->action == 'accept') {
-            Payment::find($payment->id)->update(['status' => Config('constants.payment.approved')]);
+            Payment::whereId($payment->id)->where('course_id', $course->id)->update(['status' => Config('constants.payment.approved')]);
             session()->flash('approved', "Payment Approved Successfully");
             return back();
         } else if ($request->action == 'reject') {
-            Payment::find($payment->id)->update(['status' => Config('constants.payment.rejected')]);
+            Payment::whereId($payment->id)->where('course_id', $course->id)->update(['status' => Config('constants.payment.rejected')]);
             session()->flash('rejected', "Payment Rejected Successfully");
             return back();
         } else {
             session()->flash('unauthorized', "Unauthorized Action");
             return back();
         }
+
     }
 
 }

@@ -1,4 +1,4 @@
-<x-master>
+{{-- <x-master>
 
   @section('page-title')
 Comments
@@ -11,9 +11,10 @@ Comments
     <strong class="alert alert-success w-50">{{session('success')}}</strong>
     @endif
   </div>
+  <div>
  
 
-    <form method="post" action="{{route('comment.store',$course->id)}}">
+    <form method="post" action="{{route('comment.store')}}">
       @csrf
       <input type="hidden" name="course_id" value="{{$course->id}}">
       <div class="mb-3" >
@@ -40,7 +41,6 @@ Comments
 @if(session('not_deleted'))
 <strong class="alert alert-warning w-100">{{session('not_deleted')}}</strong>
 @endif
-
 </div>
 
     <div class="row mt-1">
@@ -112,4 +112,4 @@ Comments
 
   @endsection
 
-</x-master>
+</x-master> --}}

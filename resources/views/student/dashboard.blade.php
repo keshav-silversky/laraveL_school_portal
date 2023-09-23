@@ -88,7 +88,7 @@
               <td>{{$course->user->name}}</td>
               <td>
                 <a href="{{route('student.list',$course->id)}}"><button class="btn btn-outline-info">View</button></a>
-                <a href="{{route('comments',$course->id)}}"><button class="btn btn-outline-info">Comments</button></a>
+                <a href="{{route('comments',$course)}}"><button class="btn btn-outline-info">Comments</button></a>
               </td>
               <td>
                 {{-- {{dd($course->payment[0]->status)}} --}}
@@ -101,7 +101,7 @@
                 @elseif($course->payment->status == Config('constants.payment.approved') && $course->progress == NULL || $course->progress->progress !== 100 )
                 <a href="{{route('progress.index',$course->id)}}"><button class="btn btn-primary">Start Course</button></a>
                 @elseif($course->progress->progress == 100 && $course->progress->certificate == NULL)
-                <form method="post"action="{{route('progress.certificate',$course->progress->id)}}">
+                <form method="post"action="{{route('progress.certificate',[$course->id,$course->progress->id])}}">
                   @csrf
                   @method('PUT')
                 <button type="submit" class="btn btn-outline-success">Request For Certificate</button>
@@ -109,7 +109,7 @@
               @elseif($course->progress->progress == 100 && $course->progress->certificate == Config('constants.progress.certificate'))
               <button class="btn btn-outline-info">Wait For Certificate</button>
               @else
-              <a href="/storage/payment/{{$course->progress->certificate}}" target="_blank" ><button class="btn btn-outline-success">Download Certificate</button></a> 
+              <a href="/storage/certificate/{{$course->progress->certificate}}" target="_blank" ><button class="btn btn-outline-success">Download Certificate</button></a> 
                 @endif
               </td>
 

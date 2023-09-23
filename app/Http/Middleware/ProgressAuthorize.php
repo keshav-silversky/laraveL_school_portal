@@ -2,13 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Course;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
-class CommentAuthentication
+class ProgressAuthorize
 {
     /**
      * Handle an incoming request.
@@ -21,12 +19,11 @@ class CommentAuthentication
     {
         $user = auth()->user();
         $course = $request->route('course');
-        // DB::connection()->enableQueryLog();
-        if ($user->enroll()->where('course_id', $course->id)->exists() || $user->courses()->where('id', $course->id)->exists()) {
+        if ($user->payments()->where('course_id', $course->id)->where('status', Config('constants.payment.approved'))->exists()) {
             return $next($request);
         } else {
+            // abort(403);
             return back();
         }
-        // dd(DB::getQueryLog());
     }
 }

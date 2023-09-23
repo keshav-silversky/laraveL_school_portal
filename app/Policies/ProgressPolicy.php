@@ -59,9 +59,14 @@ class ProgressPolicy
      * @param  \App\Models\Progress  $progress
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Progress $progress)
+    public function update(User $user, Progress $progress, $course)
     {
-        //
+        $user = auth()->user();
+        if ($user->courses()->where($course->id)->exists()) {
+            return true;
+        } else {
+            abort(403);
+        }
     }
 
     /**
